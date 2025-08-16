@@ -42,11 +42,10 @@ class _HomescreenWidgetState extends State<HomescreenWidget> {
     required String text,
     required IconData icon,
     required Color color,
+    required VoidCallback onPressedCallback,
   }) {
     return OutlinedButton.icon(
-      onPressed: () {
-        print('$text button pressed');
-      },
+      onPressed: onPressedCallback,
       icon: Icon(icon, color: color, size: 20),
       label: Text(
         text,
@@ -134,26 +133,91 @@ class _HomescreenWidgetState extends State<HomescreenWidget> {
                           text: 'Summarize',
                           icon: Icons.description,
                           color: const Color(0xFFF59E0B),
+                          onPressedCallback: () {
+                            setState(() {
+                              _textController.text =
+                                  "Please summarize this document.";
+                              _textFieldFocusNode.requestFocus();
+                              _textController.selection =
+                                  TextSelection.fromPosition(
+                                    TextPosition(
+                                      offset: _textController.text.length,
+                                    ),
+                                  );
+                            });
+                          },
                         ),
                         buildIconButton(
                           text: 'Mindmap',
                           icon: Icons.lightbulb_outline,
                           color: const Color(0xFFFCD34D),
+                          onPressedCallback: () {
+                            setState(() {
+                              _textController.text =
+                                  "Create a mindmap for this content.";
+                              _textFieldFocusNode.requestFocus();
+                              _textController.selection =
+                                  TextSelection.fromPosition(
+                                    TextPosition(
+                                      offset: _textController.text.length,
+                                    ),
+                                  );
+                            });
+                          },
                         ),
                         buildIconButton(
                           text: 'Flashcards',
                           icon: Icons.school,
                           color: const Color(0xFF60A5FA),
+                          onPressedCallback: () {
+                            setState(() {
+                              _textController.text =
+                                  "Generate flashcards from this material.";
+                              _textFieldFocusNode.requestFocus();
+                              _textController.selection =
+                                  TextSelection.fromPosition(
+                                    TextPosition(
+                                      offset: _textController.text.length,
+                                    ),
+                                  );
+                            });
+                          },
                         ),
                         buildIconButton(
                           text: 'Pop Quiz',
                           icon: Icons.quiz,
                           color: const Color(0xFF60A5FA),
+                          onPressedCallback: () {
+                            setState(() {
+                              _textController.text =
+                                  "Make a pop quiz based on this topic.";
+                              _textFieldFocusNode.requestFocus();
+                              _textController.selection =
+                                  TextSelection.fromPosition(
+                                    TextPosition(
+                                      offset: _textController.text.length,
+                                    ),
+                                  );
+                            });
+                          },
                         ),
                         buildIconButton(
                           text: 'Extract',
                           icon: Icons.content_copy,
                           color: const Color(0xFF9CA3AF),
+                          onPressedCallback: () {
+                            setState(() {
+                              _textController.text =
+                                  "Extract key points from this content.";
+                              _textFieldFocusNode.requestFocus();
+                              _textController.selection =
+                                  TextSelection.fromPosition(
+                                    TextPosition(
+                                      offset: _textController.text.length,
+                                    ),
+                                  );
+                            });
+                          },
                         ),
                       ],
                     ),
@@ -191,7 +255,10 @@ class _HomescreenWidgetState extends State<HomescreenWidget> {
                             const SizedBox(width: 16),
                             const Text(
                               'Uploading image...',
-                              style: TextStyle(color: Colors.white, fontSize: 16),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
                             ),
                           ],
                         ),
@@ -201,7 +268,9 @@ class _HomescreenWidgetState extends State<HomescreenWidget> {
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     decoration: const BoxDecoration(
                       color: Color(0xFF2D2D2D),
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(12),
+                      ),
                     ),
                     child: Row(
                       children: [
@@ -237,7 +306,10 @@ class _HomescreenWidgetState extends State<HomescreenWidget> {
                                 shape: BoxShape.circle,
                               ),
                               child: IconButton(
-                                icon: const Icon(Icons.send, color: Colors.black),
+                                icon: const Icon(
+                                  Icons.send,
+                                  color: Colors.black,
+                                ),
                                 onPressed: () {
                                   print('Send pressed');
                                 },
@@ -272,7 +344,10 @@ class _HomescreenWidgetState extends State<HomescreenWidget> {
             children: [
               ListTile(
                 leading: const Icon(Icons.camera_alt, color: Colors.white),
-                title: const Text('Take a photo', style: TextStyle(color: Colors.white)),
+                title: const Text(
+                  'Take a photo',
+                  style: TextStyle(color: Colors.white),
+                ),
                 onTap: () async {
                   Navigator.pop(context);
                   setState(() => _isUploadingImage = true);
@@ -281,12 +356,20 @@ class _HomescreenWidgetState extends State<HomescreenWidget> {
                   await Future.delayed(const Duration(seconds: 2));
                   setState(() => _isUploadingImage = false);
                 },
-                contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 4,
+                  horizontal: 8,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
               ListTile(
                 leading: const Icon(Icons.photo_library, color: Colors.white),
-                title: const Text('Pick from gallery', style: TextStyle(color: Colors.white)),
+                title: const Text(
+                  'Pick from gallery',
+                  style: TextStyle(color: Colors.white),
+                ),
                 onTap: () async {
                   Navigator.pop(context);
                   setState(() => _isUploadingImage = true);
@@ -295,18 +378,34 @@ class _HomescreenWidgetState extends State<HomescreenWidget> {
                   await Future.delayed(const Duration(seconds: 2));
                   setState(() => _isUploadingImage = false);
                 },
-                contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 4,
+                  horizontal: 8,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
               ListTile(
-                leading: const Icon(Icons.insert_drive_file, color: Colors.white),
-                title: const Text('Browse documents', style: TextStyle(color: Colors.white)),
+                leading: const Icon(
+                  Icons.insert_drive_file,
+                  color: Colors.white,
+                ),
+                title: const Text(
+                  'Browse documents',
+                  style: TextStyle(color: Colors.white),
+                ),
                 onTap: () async {
                   Navigator.pop(context);
                   await FilePicker.platform.pickFiles();
                 },
-                contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 4,
+                  horizontal: 8,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
             ],
           ),
